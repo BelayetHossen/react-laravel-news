@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\backend\TagController;
 use App\Http\Controllers\backend\PostController;
 use App\Http\Controllers\backend\RoleController;
 use App\Http\Controllers\backend\AdminController;
@@ -74,6 +75,14 @@ Route::get('/subsubcategory/status/{id}', [CategoryController::class, 'subSubCat
 Route::get('/subsubcategory/delete/{id}', [CategoryController::class, 'subSubCategoryDelete']);
 Route::get('/subsubcategory/get/{id}', [CategoryController::class, 'subSubCategoryGet']);
 Route::post('/subsubcategory/update', [CategoryController::class, 'subSubCategoryUpdate']);
+
+// Tags
+Route::post('/tag/store', [TagController::class, 'store']);
+Route::get('/tag/all', [TagController::class, 'allTags']);
+Route::get('/tag/status/{id}', [TagController::class, 'statusChange']);
+Route::get('/tag/get/{id}', [TagController::class, 'tagGet']);
+Route::put('/tag/update', [TagController::class, 'tagUpdate']);
+Route::get('/tag/delete/{id}', [TagController::class, 'tagDelete']);
 
 // Post
 Route::post('/post/store', [PostController::class, 'postStore']);

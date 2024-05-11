@@ -30,6 +30,9 @@ import SubCategoryEdit from './pages/post/sub-category/SubCategoryEdit';
 import SubSubCategoryAll from './pages/post/sub-sub-category/SubSubCategoryAll';
 import SubSubCategoryCreate from './pages/post/sub-sub-category/SubSubCategoryCreate';
 import SubSubCategoryEdit from './pages/post/sub-sub-category/SubSubCategoryEdit';
+import TagAll from './pages/post/tags/TagAll';
+import TagCreate from './pages/post/tags/TagCreate';
+import TagEdit from './pages/post/tags/TagEdit';
 
 
 const queryClient = new QueryClient();
@@ -68,6 +71,12 @@ function BackMain() {
                         <Route exact path='/dashboard/post/subsubcategory' element={<PrivateRoute><SubSubCategoryAll /></PrivateRoute>} />
                         <Route exact path='/dashboard/post/subsubcategory/create' element={<PrivateRoute><SubSubCategoryCreate /></PrivateRoute>} />
                         <Route exact path='/dashboard/post/subsubcategory/edit/:id' element={<PrivateRoute><SubSubCategoryEdit /></PrivateRoute>} />
+
+                        {/* Tags */}
+                        <Route exact path='/dashboard/tag' element={<PrivateRoute><TagAll /></PrivateRoute>} />
+                        <Route exact path='/dashboard/tag/create' element={<PrivateRoute><TagCreate /></PrivateRoute>} />
+                        <Route exact path='/dashboard/tag/edit/:id' element={<PrivateRoute><TagEdit /></PrivateRoute>} />
+
                         {/* Post  */}
                         <Route exact path='/dashboard/post' element={<PrivateRoute><PostAll /></PrivateRoute>} />
                         <Route exact path='/dashboard/post/create' element={<PrivateRoute><PostCreate /></PrivateRoute>} />

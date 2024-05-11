@@ -1,5 +1,6 @@
 import { useContext, useState, useEffect } from 'react';
 import { SiteContext } from '../../backend/context/ContextProvider';
+import BackTop from '../parcials/BackTop';
 
 const Footer = () => {
     const { MAIN_URL, loading, setLoading, loggedinAdmin } = useContext(SiteContext);
@@ -52,6 +53,7 @@ const Footer = () => {
                     </ul>
                 </div>
             </div>
+            <BackTop />
         </>
     );
 };

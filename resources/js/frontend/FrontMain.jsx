@@ -7,6 +7,7 @@ import ContextProvider from '../backend/context/ContextProvider';
 import Home from './pages/Home';
 import Header from './shared/Header';
 import Footer from './shared/Footer';
+import PostDetails from './pages/PostDetails';
 
 
 
@@ -20,6 +21,7 @@ function FrontMain() {
                     <Header />
                     <Routes>
                         <Route exact path='/' element={<Home />} />
+                        <Route exact path='/details/:slug' element={<PostDetails />} />
                     </Routes>
                     <Footer />
                 </ContextProvider>

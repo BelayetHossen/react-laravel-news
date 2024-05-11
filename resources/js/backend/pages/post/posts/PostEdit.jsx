@@ -13,16 +13,17 @@ import JoditEditor from 'jodit-react';
 const PostEdit = () => {
     const { MAIN_URL, loading, setLoading } = useContext(SiteContext);
     const [postData, setPostData] = useState(null);
+    const [tags, setTags] = useState(null);
     const [categories, setCategories] = useState(null);
     const [subCategories, setSubCategories] = useState(null);
     const [subSubCategories, setSubSubCategories] = useState(null);
+    const [selectedTags, setSelectedTags] = useState([]);
     const { id } = useParams();
     const navigate = useNavigate();
 
 
     const editor = useRef(null);
     const [content, setContent] = useState("");
-
 
 
 
@@ -89,6 +90,18 @@ const PostEdit = () => {
                 setLoading(false);
             });
     }, []);
+    // Fetch tags all data
+    useEffect(() => {
+        axios.get(`${MAIN_URL}/api/tag/all`)
+            .then(response => {
+                setTags(response.data.tags);
+                setLoading(false);
+            })
+            .catch(error => {
+                console.error('Error fetching permission data:', error);
+                setLoading(false);
+            });
+    }, []);
 
     // image preview system
     const [image, setImage] = useState(null);
@@ -121,6 +134,7 @@ const PostEdit = () => {
         axios.get(`${MAIN_URL}/api/post/get/${id}`)
             .then(response => {
                 setPostData(response.data.post);
+                setSelectedTags(response.data.post.tags);
                 setImage(MAIN_URL + "/images/posts/" + response.data.post?.photo);
                 setContent(response.data.post?.description);
                 setLoading(false);
@@ -130,6 +144,14 @@ const PostEdit = () => {
                 setLoading(false);
             });
     }, []);
+
+
+
+    // Event handler to update selected values
+    const handleTagChange = (e) => {
+        const selectedOptions = Array.from(e.target.selectedOptions, (option) => option.value);
+        setSelectedTags(selectedOptions);
+    };
 
     const [errors, setErrors] = useState({
         title: '',
@@ -179,6 +201,7 @@ const PostEdit = () => {
         formData.append('category_id', category_id);
         formData.append('sub_category_id', sub_category_id);
         formData.append('sub_sub_category_id', sub_sub_category_id);
+        formData.append('tags', selectedTags);
         formData.append('photo', profilePhoto);
         formData.append('meta_title', meta_title);
         formData.append('meta_description', meta_description);
@@ -189,6 +212,8 @@ const PostEdit = () => {
             setLoading(false);
             return;
         }
+
+
 
         axios.post(`${MAIN_URL}/api/post/update`, formData, {
             headers: {
@@ -298,6 +323,17 @@ const PostEdit = () => {
                                                     <option value="">-Select-</option>
                                                     {subSubCategories?.map((item, index) => (
                                                         <option key={index} value={item.id} selected={postData?.main_category?.id === item.id}>
+                                                            {item.name}
+                                                        </option>
+                                                    ))}
+                                                </select>
+                                            </div>
+
+                                            <div className="form-group">
+                                                <label>Tags<small> (optional)</small></label>
+                                                <select className="form-control" name='tags' multiple onChange={handleTagChange} defaultValue={selectedTags}>
+                                                    {tags?.map((item, index) => (
+                                                        <option key={index} value={item.name} selected={postData?.tags.includes(item.name)}>
                                                             {item.name}
                                                         </option>
                                                     ))}

@@ -47,6 +47,7 @@ class PostController extends Controller
             $data->category_id = $request->category_id;
             $data->sub_category_id = $request->sub_category_id;
             $data->sub_sub_category_id = $request->sub_sub_category_id;
+            $data->tags = json_encode($request->tags);
 
             if ($request->hasFile('photo')) {
                 $image = $request->file('photo');
@@ -92,6 +93,10 @@ class PostController extends Controller
                 unlink(public_path('images/posts/' . $data->photo));
             }
         }
+
+        $string = $request->tags;
+        $unescapedString = stripslashes(trim($string, '"'));
+        $tagsArray = explode(",", $unescapedString);
         if (empty($exist_title)) {
 
             $data->title = $request->title;
@@ -102,6 +107,7 @@ class PostController extends Controller
             $data->category_id = $request->category_id;
             $data->sub_category_id = $request->sub_category_id;
             $data->sub_sub_category_id = $request->sub_sub_category_id;
+            $data->tags = json_encode($tagsArray);
 
             $data->photo = $imageName;
             $data->update();

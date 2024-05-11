@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect, useRef } from 'react';
+import { useContext, useState, useEffect, useRef, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Breadcrumb from '../../../shared/Breadcrumb';
 import axios from 'axios';
@@ -9,9 +9,9 @@ import JoditEditor from 'jodit-react';
 
 
 
-
 const PostCreate = () => {
     const { MAIN_URL, loading, setLoading } = useContext(SiteContext);
+    const [tags, setTags] = useState(null);
     const [categories, setCategories] = useState(null);
     const [subCategories, setSubCategories] = useState(null);
     const [subSubCategories, setSubSubCategories] = useState(null);
@@ -62,6 +62,19 @@ const PostCreate = () => {
             });
     }, []);
 
+    // Fetch tags all data
+    useEffect(() => {
+        axios.get(`${MAIN_URL}/api/tag/all`)
+            .then(response => {
+                setTags(response.data.tags);
+                setLoading(false);
+            })
+            .catch(error => {
+                console.error('Error fetching permission data:', error);
+                setLoading(false);
+            });
+    }, []);
+
     // image preview system
     const [image, setImage] = useState(null);
     const [profilePhoto, setProfilePhoto] = useState(null);
@@ -88,6 +101,16 @@ const PostCreate = () => {
         }
     };
 
+
+    const [selectedTags, setSelectedTags] = useState([]);
+
+    // Event handler to update selected values
+    const handleTagChange = (e) => {
+        const selectedOptions = Array.from(e.target.selectedOptions, (option) => option.value);
+        setSelectedTags(selectedOptions);
+    };
+
+
     const [errors, setErrors] = useState({
         title: '',
         category_id: '',
@@ -95,13 +118,14 @@ const PostCreate = () => {
     });
 
     // create system
-    const submitSubSubCategory = (e) => {
+    const submitPost = (e) => {
         e.preventDefault();
         setLoading(true);
         const title = e.target.title.value;
         const category_id = e.target.category_id.value;
         const sub_category_id = e.target.sub_category_id.value;
         const sub_sub_category_id = e.target.sub_sub_category_id.value;
+        // const tags = e.target.tags.value;
         const meta_title = e.target.meta_title.value;
         const meta_description = e.target.meta_description.value;
 
@@ -133,6 +157,7 @@ const PostCreate = () => {
         formData.append('category_id', category_id);
         formData.append('sub_category_id', sub_category_id);
         formData.append('sub_sub_category_id', sub_sub_category_id);
+        formData.append('tags', selectedTags);
         formData.append('photo', profilePhoto);
         formData.append('meta_title', meta_title);
         formData.append('meta_description', meta_description);
@@ -181,7 +206,7 @@ const PostCreate = () => {
                                         </div>
                                     </div>
                                     <div className="card-body">
-                                        <form onSubmit={submitSubSubCategory} encType="multipart/form-data">
+                                        <form onSubmit={submitPost} encType="multipart/form-data">
                                             <div className="form-group">
                                                 <label htmlFor="title">Title</label>
                                                 <input
@@ -248,6 +273,16 @@ const PostCreate = () => {
                                                     ))}
                                                 </select>
                                             </div>
+                                            <div className="form-group">
+                                                <label>Tags<small> (optional)</small></label>
+                                                <select className="form-control" name='tags' multiple onChange={handleTagChange} value={selectedTags}>
+                                                    {tags?.map((item, index) => (
+                                                        <option key={index} value={item.name}>
+                                                            {item.name}
+                                                        </option>
+                                                    ))}
+                                                </select>
+                                            </div>
 
 
                                             <div className="form-group">
@@ -291,6 +326,7 @@ const PostCreate = () => {
 
                                                 </div>
                                             </div>
+
                                             <div>
                                                 <h5>SEO option<small> (optional)</small></h5>
                                             </div>

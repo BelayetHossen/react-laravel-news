@@ -163,6 +163,12 @@ const Sidebar = () => {
                                                 <p>Sub-Sub category</p>
                                             </Link>
                                         </li>
+                                        <li className="nav-item">
+                                            <Link to="/dashboard/tag" className="nav-link">
+                                                <i className="far fa-circle nav-icon"></i>
+                                                <p>Tags</p>
+                                            </Link>
+                                        </li>
 
                                     </ul>
                                 </li>

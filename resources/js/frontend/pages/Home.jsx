@@ -1,15 +1,13 @@
 import { useContext, useState, useEffect } from 'react';
 import { SiteContext } from '../../backend/context/ContextProvider';
+import RightSideBar2 from '../parcials/RightSideBar2';
+import RightSideBar1 from '../parcials/RightSideBar1';
+import VideoSection from '../parcials/VideoSection';
+import CategorySection from '../parcials/CategorySection';
 
 
 const Home = () => {
     const { MAIN_URL, loading, setLoading, loggedinAdmin } = useContext(SiteContext);
-
-    const [activeTab, setActiveTab] = useState(1);
-
-    const handleTabClick = (tabNumber) => {
-        setActiveTab(tabNumber);
-    };
 
 
 
@@ -50,7 +48,7 @@ const Home = () => {
 
 
 
-
+                {/* Hero section  */}
                 <section className='flex flex-col md:flex-row justify-between px-2 my-4 gap-4 md:gap-3'>
 
                     <div className='w-full md:w-9/12 lg:w-9/12'>
@@ -83,7 +81,7 @@ const Home = () => {
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-2 border-t-2 py-4 my-8">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-2 border-t-2 py-4 my-8">
                             <div className='p-2 shadow hover:shadow-lg'>
                                 <img className="w-full" src={`${MAIN_URL}/images/news-1.webp`} alt="Logo" loading="lazy" />
                                 <h4 className='font-black text-md text-gray-700 py-2'>হামাসের রকেট হামলা, ৩ ইসরায়েলি সেনা নিহত</h4>
@@ -113,122 +111,28 @@ const Home = () => {
 
                     </div>
 
-
-                    <div className='flex flex-col gap-2 w-full md:w-3/12 lg:w-3/12'>
-                        <div className=''>
-                            <img className="w-full" src={`${MAIN_URL}/images/ad-1.png`} alt="Logo" loading="lazy" />
-                        </div>
-                        <div className=''>
-                            <img className="w-full" src={`${MAIN_URL}/images/ad-2.jpeg`} alt="Logo" loading="lazy" />
-                        </div>
-                        <div className=''>
-                            <img className="w-full" src={`${MAIN_URL}/images/ad-3.gif`} alt="Logo" loading="lazy" />
-                        </div>
-
-                        {/* Tab  */}
-                        <div className="flex flex-col my-3">
-                            <div className="flex">
-                                <button
-                                    className={`w-1/2 px-4 py-2 bg-gray-200 ${activeTab === 1 ? 'bg-red-400' : ''}`}
-                                    onClick={() => handleTabClick(1)}
-                                >
-                                    সর্বশেষ
-                                </button>
-                                <button
-                                    className={`w-1/2 px-4 py-2 bg-gray-200 ${activeTab === 2 ? 'bg-red-400' : ''}`}
-                                    onClick={() => handleTabClick(2)}
-                                >
-                                    পাঠকের পছন্দ
-                                </button>
-                            </div>
-                            <div className="border border-gray-300 p-4">
-                                {/* Content for each tab */}
-                                {activeTab === 1 &&
-                                    <div className='flex flex-col gap-2'>
-                                        <div className='flex items-center gap-2 border-b-2 py-3'>
-                                            <img className="w-1/3" src={`${MAIN_URL}/images/news-1.webp`} alt="Logo" loading="lazy" />
-                                            <h4 className='text-sm text-gray-700 py-1'>চিকিৎসার জন্য আমানকে বিদেশ যেতে অনুমতি</h4>
-                                        </div>
-                                        <div className='flex items-center gap-2 border-b-2 py-3'>
-                                            <img className="w-1/3" src={`${MAIN_URL}/images/news-1.webp`} alt="Logo" loading="lazy" />
-                                            <h4 className='text-sm text-gray-700 py-1'>চিকিৎসার জন্য আমানকে বিদেশ যেতে অনুমতি</h4>
-                                        </div>
-                                        <div className='flex items-center gap-2 border-b-2 py-3'>
-                                            <img className="w-1/3" src={`${MAIN_URL}/images/news-1.webp`} alt="Logo" loading="lazy" />
-                                            <h4 className='text-sm text-gray-700 py-1'>চিকিৎসার জন্য আমানকে বিদেশ যেতে অনুমতি</h4>
-                                        </div>
-                                        <div className='flex items-center gap-2 border-b-2 py-3'>
-                                            <img className="w-1/3" src={`${MAIN_URL}/images/news-1.webp`} alt="Logo" loading="lazy" />
-                                            <h4 className='text-sm text-gray-700 py-1'>চিকিৎসার জন্য আমানকে বিদেশ যেতে অনুমতি</h4>
-                                        </div>
-
-                                    </div>
-                                }
-                                {activeTab === 2 &&
-                                    <div className='flex flex-col gap-2'>
-                                        <div className='flex items-center gap-2 border-b-2 py-3'>
-                                            <img className="w-1/3" src={`${MAIN_URL}/images/news-1.webp`} alt="Logo" loading="lazy" />
-                                            <h4 className='text-sm text-gray-700 py-1'>চিকিৎসার জন্য আমানকে বিদেশ যেতে অনুমতি</h4>
-                                        </div>
-                                        <div className='flex items-center gap-2 border-b-2 py-3'>
-                                            <img className="w-1/3" src={`${MAIN_URL}/images/news-1.webp`} alt="Logo" loading="lazy" />
-                                            <h4 className='text-sm text-gray-700 py-1'>চিকিৎসার জন্য আমানকে বিদেশ যেতে অনুমতি</h4>
-                                        </div>
-                                        <div className='flex items-center gap-2 border-b-2 py-3'>
-                                            <img className="w-1/3" src={`${MAIN_URL}/images/news-1.webp`} alt="Logo" loading="lazy" />
-                                            <h4 className='text-sm text-gray-700 py-1'>চিকিৎসার জন্য আমানকে বিদেশ যেতে অনুমতি</h4>
-                                        </div>
-                                        <div className='flex items-center gap-2 border-b-2 py-3'>
-                                            <img className="w-1/3" src={`${MAIN_URL}/images/news-1.webp`} alt="Logo" loading="lazy" />
-                                            <h4 className='text-sm text-gray-700 py-1'>চিকিৎসার জন্য আমানকে বিদেশ যেতে অনুমতি</h4>
-                                        </div>
-
-                                    </div>
-                                }
-                            </div>
-                        </div>
-                    </div>
+                    {/* Right side bar */}
+                    <RightSideBar1 />
                 </section>
 
+                <div className='mb-4'>
+                    <a className="my-1 flex items-center lg:mb-0 lg:mt-0" href="#">
+                        <img className="w-full" src={`${MAIN_URL}/images/ad-bn-1.gif`} alt="Logo" loading="lazy" />
+                    </a>
+                </div>
 
-                <section className='bg-[#191818] text-white p-3'>
-                    <div className='flex items-center gap-2 py-2 border-b-4 border-red-600'>
-                        <h3 className='font-black text-xl'>ভিডিও</h3>
-                        <i className="fa-solid fa-play text-red-600 text-2xl"></i>
-                    </div>
-                    <div>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-2 pt-2">
+                {/* Video section  */}
+                <VideoSection />
+
+                <div className='my-4'>
+                    <a className="my-1 flex items-center lg:mb-0 lg:mt-0" href="#">
+                        <img className="w-full" src={`${MAIN_URL}/images/ad-bn-2.gif`} alt="Logo" loading="lazy" />
+                    </a>
+                </div>
 
 
-
-                            <div className='p-2 shadow hover:shadow-lg'>
-                                <img className="w-full" src={`${MAIN_URL}/images/news-1.webp`} alt="Logo" loading="lazy" />
-                                <h4 className='font-black text-md py-2'>হামাসের রকেট হামলা, ৩ ইসরায়েলি সেনা নিহত</h4>
-                            </div>
-                            <div className='p-2 shadow hover:shadow-lg'>
-                                <img className="w-full" src={`${MAIN_URL}/images/news-1.webp`} alt="Logo" loading="lazy" />
-                                <h4 className='font-black text-md py-2'>হামাসের রকেট হামলা, ৩ ইসরায়েলি সেনা নিহত</h4>
-                            </div>
-                            <div className='p-2 shadow hover:shadow-lg'>
-                                <img className="w-full" src={`${MAIN_URL}/images/news-1.webp`} alt="Logo" loading="lazy" />
-                                <h4 className='font-black text-md py-2'>হামাসের রকেট হামলা, ৩ ইসরায়েলি সেনা নিহত</h4>
-                            </div>
-                            <div className='p-2 shadow hover:shadow-lg'>
-                                <img className="w-full" src={`${MAIN_URL}/images/news-1.webp`} alt="Logo" loading="lazy" />
-                                <h4 className='font-black text-md py-2'>হামাসের রকেট হামলা, ৩ ইসরায়েলি সেনা নিহত</h4>
-                            </div>
-                            <div className='p-2 shadow hover:shadow-lg'>
-                                <img className="w-full" src={`${MAIN_URL}/images/news-1.webp`} alt="Logo" loading="lazy" />
-                                <h4 className='font-black text-md py-2'>হামাসের রকেট হামলা, ৩ ইসরায়েলি সেনা নিহত</h4>
-                            </div>
-                            <div className='p-2 shadow hover:shadow-lg'>
-                                <img className="w-full" src={`${MAIN_URL}/images/news-1.webp`} alt="Logo" loading="lazy" />
-                                <h4 className='font-black text-md py-2'>হামাসের রকেট হামলা, ৩ ইসরায়েলি সেনা নিহত</h4>
-                            </div>
-
-                        </div>
-                    </div>
-                </section>
+                {/* Category section  */}
+                <CategorySection />
 
 
 
