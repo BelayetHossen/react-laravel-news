@@ -125,24 +125,6 @@ const CategoryCreate = () => {
                                                 {nameCheck && <p className='text-danger'>{nameCheck}</p>}
                                             </div>
 
-                                            {/* <div className="form-group">
-                                                <label>Role</label>
-                                                {
-                                                    roleData && (
-                                                        <select
-                                                            className="form-control"
-                                                            name='role'
-                                                        >
-                                                            {roleData?.map((item, index) => (
-                                                                <option key={index} value={item.id}>
-                                                                    {item.name}
-                                                                </option>
-                                                            ))}
-                                                        </select>
-                                                    )
-                                                }
-                                            </div> */}
-
                                             <div className="form-group">
                                                 <label>Photo</label>
                                                 {

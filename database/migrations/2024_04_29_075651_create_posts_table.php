@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('meta_title')->nullable();
             $table->text('meta_description')->nullable();
             $table->text('tags')->nullable();
-            $table->integer('popular_count')->nullable();
+            $table->integer('popular_count')->default(0);
             $table->string('photo')->nullable();
             $table->boolean('trash')->default(false);
             $table->boolean('status')->default(true);

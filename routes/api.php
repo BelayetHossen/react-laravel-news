@@ -3,10 +3,12 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\backend\TagController;
+use App\Http\Controllers\backend\MenuController;
 use App\Http\Controllers\backend\PostController;
 use App\Http\Controllers\backend\RoleController;
 use App\Http\Controllers\backend\AdminController;
 use App\Http\Controllers\backend\LoginController;
+use App\Http\Controllers\frontend\HomeController;
 use App\Http\Controllers\backend\CategoryController;
 use App\Http\Controllers\backend\PermissionController;
 
@@ -92,3 +94,16 @@ Route::get('/post/delete/{id}', [PostController::class, 'postDelete']);
 Route::get('/post/get/{id}', [PostController::class, 'postGet']);
 Route::post('/post/update', [PostController::class, 'postUpdate']);
 
+// Menu settings
+Route::get('/main-menu-items/all', [MenuController::class, 'allMailMenuItem']);
+Route::post('/main-menu/item/create', [MenuController::class, 'storeMainMenuItem']);
+Route::get('/main-menu/item/delete/{id}', [MenuController::class, 'deleteMainMenuItem']);
+
+
+// Home routes
+Route::get('/home/post', [HomeController::class, 'homePost']);
+Route::get('/home/header/categories', [HomeController::class, 'headerCategories']);
+Route::get('/posts/{id}/click', [HomeController::class, 'clickPost']);
+
+// Post details page routes
+Route::get('/post/{slug}', [HomeController::class, 'getSinglePost']);

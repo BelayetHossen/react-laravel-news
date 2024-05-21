@@ -173,6 +173,51 @@ const Sidebar = () => {
                                     </ul>
                                 </li>
                             }
+                            {
+                                loggedinAdmin?.get_role?.permissions.includes("Setti") &&
+                                <li className={`nav-item ${isPostsPath() ? ' menu-is-opening menu-open active' : ''}`}>
+                                    <Link className="nav-link">
+                                        <i className="fas fa-cog nav-icon"></i>
+                                        <p>
+                                            Settings
+                                            <i className="fas fa-angle-left right"></i>
+                                        </p>
+                                    </Link>
+                                    <ul className="nav nav-treeview">
+                                        <li className="nav-item">
+                                            <Link to="/dashboard/menu" className="nav-link">
+                                                <i className="far fa-circle nav-icon"></i>
+                                                <p>Menu</p>
+                                            </Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link to="/dashboard/post/category" className="nav-link">
+                                                <i className="far fa-circle nav-icon"></i>
+                                                <p>Category</p>
+                                            </Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link to="/dashboard/post/subcategory" className="nav-link">
+                                                <i className="far fa-circle nav-icon"></i>
+                                                <p>Sub category</p>
+                                            </Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link to="/dashboard/post/subsubcategory" className="nav-link">
+                                                <i className="far fa-circle nav-icon"></i>
+                                                <p>Sub-Sub category</p>
+                                            </Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link to="/dashboard/tag" className="nav-link">
+                                                <i className="far fa-circle nav-icon"></i>
+                                                <p>Tags</p>
+                                            </Link>
+                                        </li>
+
+                                    </ul>
+                                </li>
+                            }
 
 
 

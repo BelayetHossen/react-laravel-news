@@ -6,6 +6,12 @@ const ContextProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
     const [loggedinAdmin, setLoggedinAdmin] = useState(null);
     const token = localStorage.getItem('_token');
+    const [latestOne, setLatestOne] = useState(null);
+    const [nextFourPost, setNextFourPost] = useState([]);
+    const [nextSixPost, setNextSixPost] = useState([]);
+    const [popularFourPosts, setPopularFourPosts] = useState([]);
+
+    // Fatch loggedIn admin
     useEffect(() => {
         const fetchAdmin = async () => {
             const token = localStorage.getItem('_token');
@@ -29,6 +35,42 @@ const ContextProvider = ({ children }) => {
         fetchAdmin();
     }, []);
 
+    // remove html tag
+    const removeHtmlTags = (htmlString) => {
+        if (htmlString) {
+            const regex = /(<([^>]+)>)/gi;
+            return htmlString.replace(regex, '');
+        } else {
+            return '';
+        }
+    };
+
+
+
+    // Fetch home post
+    useEffect(() => {
+        axios.get(`${MAIN_URL}/api/home/post`)
+            .then(response => {
+                setLatestOne(response.data.latestOne);
+                setNextFourPost(response.data.nextFourPosts);
+                setNextSixPost(response.data.nextSixPosts);
+                setPopularFourPosts(response.data.popularFourPosts);
+                setLoading(false);
+            })
+            .catch(error => {
+                console.error('Error fetching permission data:', error);
+                setLoading(false);
+            });
+    }, []);
+
+    // increase populer post count by click user
+    const handlePopulerClick = async (id) => {
+        try {
+            await axios.get(`/api/posts/${id}/click`);
+        } catch (error) {
+            console.error('Error incrementing popular count:', error);
+        }
+    };
 
 
 
@@ -39,7 +81,13 @@ const ContextProvider = ({ children }) => {
         loading,
         setLoading,
         loggedinAdmin,
-        token
+        token,
+        removeHtmlTags,
+        latestOne,
+        nextFourPost,
+        nextSixPost,
+        popularFourPosts,
+        handlePopulerClick
     };
 
     return (

@@ -1,9 +1,10 @@
 import { useContext, useState, useEffect } from 'react';
 import { SiteContext } from '../../backend/context/ContextProvider';
 import DistrictSearch from './DistrictSearch';
+import { Link } from 'react-router-dom';
 
 const DetailsRightBar = () => {
-    const { MAIN_URL, loading, setLoading, loggedinAdmin } = useContext(SiteContext);
+    const { MAIN_URL, loading, setLoading, handlePopulerClick, nextFourPost, popularFourPosts } = useContext(SiteContext);
 
     const [activeTab, setActiveTab] = useState(1);
 
@@ -37,44 +38,31 @@ const DetailsRightBar = () => {
 
                         {activeTab === 1 &&
                             <div className='flex flex-col gap-2'>
-                                <div className='flex items-center gap-2 border-b-2 py-3'>
-                                    <img className="w-1/3" src={`${MAIN_URL}/images/news-1.webp`} alt="Logo" loading="lazy" />
-                                    <h4 className='text-sm text-gray-700 py-1'>চিকিৎসার জন্য আমানকে বিদেশ যেতে অনুমতি</h4>
-                                </div>
-                                <div className='flex items-center gap-2 border-b-2 py-3'>
-                                    <img className="w-1/3" src={`${MAIN_URL}/images/news-1.webp`} alt="Logo" loading="lazy" />
-                                    <h4 className='text-sm text-gray-700 py-1'>চিকিৎসার জন্য আমানকে বিদেশ যেতে অনুমতি</h4>
-                                </div>
-                                <div className='flex items-center gap-2 border-b-2 py-3'>
-                                    <img className="w-1/3" src={`${MAIN_URL}/images/news-1.webp`} alt="Logo" loading="lazy" />
-                                    <h4 className='text-sm text-gray-700 py-1'>চিকিৎসার জন্য আমানকে বিদেশ যেতে অনুমতি</h4>
-                                </div>
-                                <div className='flex items-center gap-2 border-b-2 py-3'>
-                                    <img className="w-1/3" src={`${MAIN_URL}/images/news-1.webp`} alt="Logo" loading="lazy" />
-                                    <h4 className='text-sm text-gray-700 py-1'>চিকিৎসার জন্য আমানকে বিদেশ যেতে অনুমতি</h4>
-                                </div>
-
+                                {
+                                    nextFourPost?.map((item, index) => (
+                                        <Link to={`/details/${item.slug}`} key={item.id}>
+                                            <div className='flex items-center gap-2 border-b-2 py-3' onClick={() => handlePopulerClick(item.id)}>
+                                                <img className="w-1/3" src={`${MAIN_URL}/images/posts/${item.photo}`} alt="Logo" loading="lazy" />
+                                                <h4 className='text-sm text-gray-700 hover:text-red-500 py-1'>{item.title}</h4>
+                                            </div>
+                                        </Link>
+                                    ))
+                                }
                             </div>
                         }
                         {activeTab === 2 &&
                             <div className='flex flex-col gap-2'>
-                                <div className='flex items-center gap-2 border-b-2 py-3'>
-                                    <img className="w-1/3" src={`${MAIN_URL}/images/news-1.webp`} alt="Logo" loading="lazy" />
-                                    <h4 className='text-sm text-gray-700 py-1'>চিকিৎসার জন্য আমানকে বিদেশ যেতে অনুমতি</h4>
-                                </div>
-                                <div className='flex items-center gap-2 border-b-2 py-3'>
-                                    <img className="w-1/3" src={`${MAIN_URL}/images/news-1.webp`} alt="Logo" loading="lazy" />
-                                    <h4 className='text-sm text-gray-700 py-1'>চিকিৎসার জন্য আমানকে বিদেশ যেতে অনুমতি</h4>
-                                </div>
-                                <div className='flex items-center gap-2 border-b-2 py-3'>
-                                    <img className="w-1/3" src={`${MAIN_URL}/images/news-1.webp`} alt="Logo" loading="lazy" />
-                                    <h4 className='text-sm text-gray-700 py-1'>চিকিৎসার জন্য আমানকে বিদেশ যেতে অনুমতি</h4>
-                                </div>
-                                <div className='flex items-center gap-2 border-b-2 py-3'>
-                                    <img className="w-1/3" src={`${MAIN_URL}/images/news-1.webp`} alt="Logo" loading="lazy" />
-                                    <h4 className='text-sm text-gray-700 py-1'>চিকিৎসার জন্য আমানকে বিদেশ যেতে অনুমতি</h4>
-                                </div>
+                                {
+                                    popularFourPosts?.map((item, index) => (
+                                        <Link to={`/details/${item.slug}`} key={item.id}>
+                                            <div className='flex items-center gap-2 border-b-2 py-3' onClick={() => handlePopulerClick(item.id)}>
+                                                <img className="w-1/3" src={`${MAIN_URL}/images/posts/${item.photo}`} alt="Logo" loading="lazy" />
+                                                <h4 className='text-sm text-gray-700 hover:text-red-500 py-1'>{item.title}</h4>
+                                            </div>
+                                        </Link>
 
+                                    ))
+                                }
                             </div>
                         }
                     </div>

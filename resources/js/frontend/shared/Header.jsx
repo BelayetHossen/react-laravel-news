@@ -1,15 +1,45 @@
 import { useContext, useState, useEffect } from 'react';
 import { SiteContext } from '../../backend/context/ContextProvider';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
     const { MAIN_URL, loading, setLoading, loggedinAdmin } = useContext(SiteContext);
     const [dateTime, setDateTime] = useState({});
     const [searchShow, setSearchShow] = useState(false);
     const [isCollapsed, setIsCollapsed] = useState(true);
+    const [categories, setCategories] = useState(null);
+    const [first13Categories, setFirst13Categories] = useState(null);
+    const [skip13NextCategories, setSkip13NextCategories] = useState(null);
 
     const toggleOffcanvas = () => {
         setIsCollapsed(!isCollapsed);
     }
+
+    // Fetch Categories all data
+    useEffect(() => {
+        axios.get(`${MAIN_URL}/api/category/all`)
+            .then(response => {
+                setCategories(response.data.categories);
+                setLoading(false);
+            })
+            .catch(error => {
+                console.error('Error fetching permission data:', error);
+                setLoading(false);
+            });
+    }, []);
+    //  Categories
+    useEffect(() => {
+        axios.get(`${MAIN_URL}/api/home/header/categories`)
+            .then(response => {
+                setFirst13Categories(response.data.first13Categories);
+                setSkip13NextCategories(response.data.skip13NextCategories);
+                setLoading(false);
+            })
+            .catch(error => {
+                console.error('Error fetching permission data:', error);
+                setLoading(false);
+            });
+    }, []);
 
 
 
@@ -88,9 +118,9 @@ const Header = () => {
                         </div>
 
                         <div className=''>
-                            <a className="mx-2 my-1 flex items-center lg:mb-0 lg:mt-0" href="#">
+                            <Link to={'/'} className="mx-2 my-1 flex items-center lg:mb-0 lg:mt-0" href="#">
                                 <img className="me-2" src={`${MAIN_URL}/images/default-logo.png`} style={{ height: '60px' }} alt="Logo" loading="lazy" />
-                            </a>
+                            </Link>
                         </div>
 
                         <div className='flex items-center gap-3'>
@@ -127,60 +157,53 @@ const Header = () => {
                 <div className={`flex-no-wrap relative flex w-full items-center justify-between bg-blue-50 shadow-dark-mild dark:bg-neutral-700 lg:flex-wrap lg:justify-start py-2 border-y-2`}>
                     <div className="flex w-full flex-wrap items-center justify-between px-3">
 
-                        <div className="flex-grow items-center w-10/12" id="navbarSupportedContent1" data-twe-collapse-item>
+                        <div className="flex-grow items-center w-10/12" id="navbarSupportedContent1">
+                            <ul className="list-style-none me-auto flex flex-row ps-1 gap-5 overflow-x-auto whitespace-nowrap hide-scrollbar">
+                                <li className="font-semibold text-gray-600 hover:text-black">
+                                    <Link to={'/'} data-twe-nav-link-ref>হোম</Link>
+                                </li>
+                                {
+                                    first13Categories &&
+                                    first13Categories.map((item) => (
+                                        <li key={item.id} className="font-semibold text-gray-600 hover:text-black">
+                                            <Link to={'/'} className="" data-twe-nav-link-ref>{item.name}</Link>
+                                        </li>
+                                    ))
+                                }
+                                {
+                                    skip13NextCategories &&
+                                    <>
+                                        <div className="group cursor-pointer">
 
-                            <ul className="list-style-none me-auto flex flex-row ps-1 gap-5" data-twe-navbar-nav-ref>
-                                <li className="" data-twe-nav-item-ref>
-                                    <a className="" href="#" data-twe-nav-link-ref>সারাদেশ</a>
-                                </li>
-                                <li className="" data-twe-nav-item-ref>
-                                    <a className="" href="#" data-twe-nav-link-ref>রাজনীতি</a>
-                                </li>
-                                <li className="" data-twe-nav-item-ref>
-                                    <a className="" href="#" data-twe-nav-link-ref>অর্থনীতি</a>
-                                </li>
-                                <li className="" data-twe-nav-item-ref>
-                                    <a className="" href="#" data-twe-nav-link-ref>অর্থনীতি</a>
-                                </li>
-                                <li className="" data-twe-nav-item-ref>
-                                    <a className="" href="#" data-twe-nav-link-ref>অর্থনীতি</a>
-                                </li>
-                                <li className="" data-twe-nav-item-ref>
-                                    <a className="" href="#" data-twe-nav-link-ref>অর্থনীতি</a>
-                                </li>
-                                <li className="" data-twe-nav-item-ref>
-                                    <a className="" href="#" data-twe-nav-link-ref>অর্থনীতি</a>
-                                </li>
-                                <li className="" data-twe-nav-item-ref>
-                                    <a className="" href="#" data-twe-nav-link-ref>অর্থনীতি</a>
-                                </li>
-                                <li className="" data-twe-nav-item-ref>
-                                    <a className="" href="#" data-twe-nav-link-ref>অর্থনীতি</a>
-                                </li>
-                                <li className="" data-twe-nav-item-ref>
-                                    <a className="" href="#" data-twe-nav-link-ref>অর্থনীতি</a>
-                                </li>
-                                <li className="" data-twe-nav-item-ref>
-                                    <a className="" href="#" data-twe-nav-link-ref>অর্থনীতি</a>
-                                </li>
-                                <li className="" data-twe-nav-item-ref>
-                                    <a className="" href="#" data-twe-nav-link-ref>অর্থনীতি</a>
-                                </li>
-                                <li className="" data-twe-nav-item-ref>
-                                    <a className="" href="#" data-twe-nav-link-ref>অর্থনীতি</a>
-                                </li>
-                                <li className="" data-twe-nav-item-ref>
-                                    <a className="" href="#" data-twe-nav-link-ref>অর্থনীতি</a>
-                                </li>
-                                <li className="" data-twe-nav-item-ref>
-                                    <a className="" href="#" data-twe-nav-link-ref>অর্থনীতি</a>
-                                </li>
+                                            <div className="flex items-center justify-between space-x-2">
+                                                <li className="font-semibold text-gray-600 hover:text-black">
+                                                    <Link to={'/'}>আরও</Link>
+                                                </li>
+                                                <span>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
+                                                        stroke="currentColor" className="h-5 w-5">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                                    </svg>
+                                                </span>
+                                            </div>
 
+                                            <div className="invisible absolute z-50 flex w-full flex-col bg-gray-100 py-1 text-gray-800 shadow-xl group-hover:visible w-32 -ms-6">
+                                                {
+                                                    skip13NextCategories &&
+                                                    skip13NextCategories.map((item) => (
+                                                        <Link key={item.id} to={'/'} className="block border-b border-gray-300 py-2 font-semibold text-gray-700 hover:bg-gray-200 md:px-2">
+                                                            {item.name}
+                                                        </Link>
+                                                    ))
+                                                }
+                                            </div>
+                                        </div>
+                                    </>
 
-
-
+                                }
                             </ul>
                         </div>
+
                         <div onClick={() => setSearchShow(!searchShow)} className="hidden md:block relative flex items-center cursor-pointer shrink border-s ps-3">
                             {
                                 searchShow ? <i className="fa-solid fa-xmark text-xl"></i> : <i className="fas fa-search text-xl"></i>

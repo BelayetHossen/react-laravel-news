@@ -33,6 +33,7 @@ import SubSubCategoryEdit from './pages/post/sub-sub-category/SubSubCategoryEdit
 import TagAll from './pages/post/tags/TagAll';
 import TagCreate from './pages/post/tags/TagCreate';
 import TagEdit from './pages/post/tags/TagEdit';
+import Menu from './pages/settings/Menu';
 
 
 const queryClient = new QueryClient();
@@ -81,6 +82,9 @@ function BackMain() {
                         <Route exact path='/dashboard/post' element={<PrivateRoute><PostAll /></PrivateRoute>} />
                         <Route exact path='/dashboard/post/create' element={<PrivateRoute><PostCreate /></PrivateRoute>} />
                         <Route exact path='/dashboard/post/edit/:id' element={<PrivateRoute><PostEdit /></PrivateRoute>} />
+
+                        {/* Menu */}
+                        <Route exact path='/dashboard/menu' element={<PrivateRoute><Menu /></PrivateRoute>} />
 
                     </Routes>
                     <Footer />
