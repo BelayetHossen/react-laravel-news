@@ -241,9 +241,9 @@ const Header = () => {
                 <div id="drawer-example" className={`${isCollapsed && '-translate-x-full'} fixed top-0 left-0 z-40 h-screen p-4 overflow-y-auto transition-transform bg-gray-200 w-full dark:bg-gray-800`} tabIndex="-1" aria-labelledby="drawer-label">
                     <div className='flex justify-between items-center'>
                         <div>
-                            <a className="mx-2 my-1 flex items-center lg:mb-0 lg:mt-0" href="#">
+                            <Link to={'/'} className="mx-2 my-1 flex items-center lg:mb-0 lg:mt-0">
                                 <img className="me-2" src={`${MAIN_URL}/images/default-logo.png`} style={{ height: '40px' }} alt="Logo" loading="lazy" />
-                            </a>
+                            </Link>
                         </div>
                         <button onClick={toggleOffcanvas} type="button" className="text-gray-900 bg-transparent hover:bg-red-400 hover:text-gray-100 rounded-lg text-sm w-8 h-8 flex items-center justify-center float-right">
                             <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -254,15 +254,15 @@ const Header = () => {
 
                     <div className="mt-10">
                         <ul className="list-style-none grid gap-5 grid-cols-2">
-                            <li className="border-b border-stone-300 pb-1">
-                                <a className="text-sm font-bold" href="#">সারাদেশ</a>
-                            </li>
-                            <li className="border-b border-stone-300 pb-1">
-                                <a className="text-sm font-bold" href="#">সারাদেশ</a>
-                            </li>
-                            <li className="border-b border-stone-300 pb-1">
-                                <a className="text-sm font-bold" href="#">সারাদেশ</a>
-                            </li>
+                            {
+                                categories &&
+                                categories.map((item) => (
+                                    <li className="border-b border-stone-300 pb-1">
+                                        <Link to={'/'} className="text-sm font-bold">{item.name}</Link>
+                                    </li>
+                                ))
+                            }
+
 
 
                         </ul>
